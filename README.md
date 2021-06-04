@@ -21,7 +21,7 @@ Instructions:
 - Right click either CleanApps.ps1 or CleanAppsGUI.ps1 and select "Run with PowerShell".
 - If PowerShell asks for permission to run the script press "y".
 - If you get an error stating that scripts are not allowed to run on the system, you need to run AllowScript.bat as an administrator.
-  To do this, right click AllowScript.bat and select "Run as Administrator". After the window closes, try the PowerShell scripts again.
+  To do this, right click AllowScript.bat and select "Run as Administrator". After the window closes try the PowerShell scripts again.
 
 List of apps script will attempt to remove:
 - Microsoft.MixedReality.Portal
