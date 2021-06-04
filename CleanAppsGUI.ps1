@@ -6,8 +6,6 @@ $dllvar = '[DllImport("user32.dll")] public static extern bool ShowWindow(int ha
 add-type -name win -member $dllvar -namespace native
 [native.win]::ShowWindow(([System.Diagnostics.Process]::GetCurrentProcess() | Get-Process).MainWindowHandle, 0)
 
-# https://lazyadmin.nl/powershell/powershell-gui-howto-get-started/
-#
 # init GUI
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
@@ -49,7 +47,6 @@ $ExitButton.Font = New-Object System.Drawing.Font('Microsoft Sans Serif',8)
 $ExitButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#81b772")
 $ExitButton.Add_Click({$Form.Close()})#On click do function
 
-# https://community.spiceworks.com/topic/2127610-redirect-all-script-output-into-forms-textbox
 $OutputBox = New-Object System.Windows.Forms.TextBox 
 $OutputBox.Location = New-Object System.Drawing.Size(10,200)
 $OutputBox.Size = New-Object System.Drawing.Size(580,190)
