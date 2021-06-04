@@ -10,6 +10,10 @@
                 Clean Windows Apps
 </pre>
 
+Disclaimer:
+- Run scripts at your own risk.
+- I do NOT take responsibility for what may happen to your system.
+
 Description:
 - Two PowerShell scripts are provided to assist in removing non essential Windows Apps.
 - CleanApps.ps1 is an interactive command line version of the utility.
