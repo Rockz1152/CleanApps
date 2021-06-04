@@ -15,7 +15,7 @@ Description:
 - CleanApps.ps1 is an interactive command line version of the utility.
 - CleanAppsGUI.ps1 is a graphically interactive version of the utility.
 - Both scripts are also capable of reinstalling all default Windows Apps.
-- A list of the apps removed is provided in this file.
+- A list of the apps removed is provided after the instructions.
 
 Instructions:
 - Right click either CleanApps.ps1 or CleanAppsGUI.ps1 and select "Run with PowerShell".
@@ -23,7 +23,7 @@ Instructions:
 - If you get an error stating that scripts are not allowed to run on the system, you need to run AllowScript.bat as an administrator.
   To do this, right click AllowScript.bat and select "Run as Administrator". After the window closes try the PowerShell scripts again.
 
-List of apps script will attempt to remove:
+List of apps the script will attempt to remove:
 - Microsoft.MixedReality.Portal
 - Microsoft.Wallet
 - Microsoft.DesktopAppInstaller
