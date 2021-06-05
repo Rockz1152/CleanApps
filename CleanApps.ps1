@@ -1,6 +1,19 @@
 # CleanApps.ps1 by Rockz - 5/26/21
 # Remove/Reinstall non-essential Windows apps
 
+# Set title bar information
+$Title = "Clean Windows Apps - v1.1"
+$host.UI.RawUI.WindowTitle = $Title
+
+# Suppress errors
+$ErrorActionPreference = 'SilentlyContinue'
+
+# Set console height and width
+[console]::WindowHeight=30; [console]::WindowWidth=75;
+
+# set console colors and print ascii art
+$host.ui.RawUI.BackgroundColor = "Black"
+cls
 Write-Host " "
 $oldtext = $host.ui.RawUI.ForegroundColor
 $host.ui.RawUI.ForegroundColor = "Green"
@@ -88,33 +101,40 @@ Dolby
 "
 $RemoveApps = $RemoveApps -replace '\r*\n', ''
 $progressPreference = 'silentlyContinue'
-Write-Host "--Part 1"
-Get-AppxPackage | where-object {$_.Name -match $RemoveApps} | Remove-AppxPackage -erroraction silentlycontinue
-Write-Host "--Part 2"
-Get-AppxPackage | where-object {$_.Name -match $RemoveApps} | Remove-AppxPackage -erroraction silentlycontinue
+Write-Host "Working ..."
+Get-AppxPackage | where-object {$_.Name -match $RemoveApps} | Remove-AppxPackage -erroraction 'silentlycontinue'
 $progressPreference = 'Continue'
 }
 
 if ($key.Character -eq '2') {
 Write-Host "Reinstalling Apps"
 $progressPreference = 'silentlyContinue'
-# We need to copy these acls later for when we cleanup
+# Generate a file to copy the acl from later on
+Out-File -FilePath $Env:ALLUSERSPROFILE\acl.txt -Force
+# Breakdown of long command below:
+# - start an admin process to get a list of apps for all users
+# - write that list out to a file
+# - copy the acl from the above file and apply it to our list file
+# - this allows the non admin context to read the app list from the admin context
 Out-File -FilePath $Env:ALLUSERSPROFILE\acl.txt -Force
 Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"Get-AppxPackage -AllUsers | select InstallLocation | Format-Table -HideTableHeaders | Out-File -Width 1000 $Env:ALLUSERSPROFILE\applist.txt -Force; Get-Acl -Path $Env:ALLUSERSPROFILE\acl.txt | Set-Acl -Path $Env:ALLUSERSPROFILE\applist.txt`"" -Verb RunAs -Wait -WindowStyle Hidden
+Write-Host "Working ..."
+# read the app list into a variable and go to work
 if ((Test-Path $Env:ALLUSERSPROFILE\applist.txt) -eq "True") {
     $AppList = Get-Content $Env:ALLUSERSPROFILE\applist.txt
     # Cleanup temp files
-    Remove-Item $Env:ALLUSERSPROFILE\applist.txt
-    Remove-Item $Env:ALLUSERSPROFILE\acl.txt
+    if ((Test-Path $Env:ALLUSERSPROFILE\applist.txt) -eq "True") {
+        Remove-Item $Env:ALLUSERSPROFILE\applist.txt
+    }
+    if ((Test-Path $Env:ALLUSERSPROFILE\acl.txt) -eq "True") {
+        Remove-Item $Env:ALLUSERSPROFILE\acl.txt
+    }
     $AppList = $AppList.Trim()
     foreach ($App in $AppList) {
             if ($App -ne "" ) {
-                Add-AppxPackage -DisableDevelopmentMode -Register "$App\appxmanifest.xml" -ErrorAction SilentlyContinue
+                Add-AppxPackage -DisableDevelopmentMode -Register "$App\appxmanifest.xml" -ErrorAction 'silentlycontinue' | Out-Null
             }
         }
-    }
-if ((Test-Path $Env:ALLUSERSPROFILE\acl.txt) -eq "True") {
-    Remove-Item $Env:ALLUSERSPROFILE\acl.txt
     }
 $progressPreference = 'Continue'
 }
