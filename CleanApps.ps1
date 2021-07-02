@@ -11,7 +11,7 @@ $ErrorActionPreference = 'SilentlyContinue'
 # Set console height and width
 [console]::WindowHeight=30; [console]::WindowWidth=75;
 
-# set console colors and print ascii art
+# Set console colors and print ascii art
 $host.ui.RawUI.BackgroundColor = "Black"
 cls
 Write-Host " "
@@ -99,6 +99,7 @@ Sway|
 Speed Test|
 Dolby
 "
+# Remove the line returns to cleanup the variable
 $RemoveApps = $RemoveApps -replace '\r*\n', ''
 $progressPreference = 'silentlyContinue'
 Write-Host "Working ..."
@@ -119,7 +120,7 @@ Out-File -FilePath $Env:ALLUSERSPROFILE\acl.txt -Force
 Out-File -FilePath $Env:ALLUSERSPROFILE\acl.txt -Force
 Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"Get-AppxPackage -AllUsers | select InstallLocation | Format-Table -HideTableHeaders | Out-File -Width 1000 $Env:ALLUSERSPROFILE\applist.txt -Force; Get-Acl -Path $Env:ALLUSERSPROFILE\acl.txt | Set-Acl -Path $Env:ALLUSERSPROFILE\applist.txt`"" -Verb RunAs -Wait -WindowStyle Hidden
 Write-Host "Working ..."
-# read the app list into a variable and go to work
+# Read the app list into a variable and go to work
 if ((Test-Path $Env:ALLUSERSPROFILE\applist.txt) -eq "True") {
     $AppList = Get-Content $Env:ALLUSERSPROFILE\applist.txt
     # Cleanup temp files

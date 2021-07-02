@@ -6,11 +6,11 @@ $dllvar = '[DllImport("user32.dll")] public static extern bool ShowWindow(int ha
 add-type -name win -member $dllvar -namespace native
 [native.win]::ShowWindow(([System.Diagnostics.Process]::GetCurrentProcess() | Get-Process).MainWindowHandle, 0)
 
-# init GUI
+# Init GUI
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
-# main window
+# Main window
 $Form = New-Object system.Windows.Forms.Form
 $Form.ClientSize = New-Object System.Drawing.Point(600,400)
 $Form.StartPosition = 'CenterScreen'
@@ -45,7 +45,8 @@ $ExitButton.height = 30
 $ExitButton.location = New-Object System.Drawing.Point(130,140)
 $ExitButton.Font = New-Object System.Drawing.Font('Microsoft Sans Serif',8)
 $ExitButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#81b772")
-$ExitButton.Add_Click({$Form.Close()})#On click do function
+# On click do function
+$ExitButton.Add_Click({Add-OutputBoxLine -Message "Exiting ..."; $Form.Close()})
 
 $OutputBox = New-Object System.Windows.Forms.TextBox 
 $OutputBox.Location = New-Object System.Drawing.Size(10,200)
@@ -77,10 +78,10 @@ $Note.location = New-Object System.Drawing.Point(20,180)
 $Note.Font = 'Microsoft Sans Serif,10'
 $Note.ForeColor = "White"
 
-# add elements to the form
+# Add elements to the form
 $Form.controls.AddRange(@($RemoveApps,$ReinstallApps,$OutputBox,$Note,$Title,$SubTitle,$ExitButton))
 
-# add functions to buttons
+# Add functions to buttons
 $RemoveApps.Add_Click({ RemoveApps })
 $ReinstallApps.Add_Click({ ConfirmDialogue })
 $ExitButton.Add_Click({ ExitButton })
@@ -138,6 +139,7 @@ Sway|
 Speed Test|
 Dolby
 "
+# Remove the line returns to cleanup the variable
 $RemoveApps = $RemoveApps -replace '\r*\n', ''
 $progressPreference = 'silentlyContinue'
 Add-OutputBoxLine -Message "Working ..."
@@ -175,7 +177,7 @@ Out-File -FilePath $Env:ALLUSERSPROFILE\acl.txt -Force
 # - this allows the non admin context to read the app list from the admin context
 Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"Get-AppxPackage -AllUsers | select InstallLocation | Format-Table -HideTableHeaders | Out-File -Width 1000 $Env:ALLUSERSPROFILE\applist.txt -Force; Get-Acl -Path $Env:ALLUSERSPROFILE\acl.txt | Set-Acl -Path $Env:ALLUSERSPROFILE\applist.txt`"" -Verb RunAs -Wait -WindowStyle Hidden
 Add-OutputBoxLine -Message "Working ..."
-# read the app list into a variable and go to work
+# Read the app list into a variable and go to work
 if ((Test-Path $Env:ALLUSERSPROFILE\applist.txt) -eq "True") {
     $AppList = Get-Content $Env:ALLUSERSPROFILE\applist.txt
     # Cleanup temp files
