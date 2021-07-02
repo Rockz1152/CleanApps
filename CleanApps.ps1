@@ -1,8 +1,8 @@
-# CleanApps.ps1 by Rockz - 5/26/21
+# CleanApps.ps1 by Rockz - 7/1/21
 # Remove/Reinstall non-essential Windows apps
 
 # Set title bar information
-$Title = "Clean Windows Apps - v1.1"
+$Title = "Clean Windows Apps - v1.1.1"
 $host.UI.RawUI.WindowTitle = $Title
 
 # Suppress errors

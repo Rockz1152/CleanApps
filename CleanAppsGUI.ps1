@@ -1,4 +1,4 @@
-# CleanAppsGUI.ps1 by Rockz - 5/26/21
+# CleanAppsGUI.ps1 by Rockz - 7/1/21
 # Remove/Reinstall non-essential Windows apps
 
 # Hide PowerShell Console
@@ -18,7 +18,7 @@ $Form.FormBorderStyle = 'FixedSingle'
 # $Form.MinimizeBox = $false
 $Form.MaximizeBox = $false
 # $Form.ShowIcon = $false
-$Form.text = "Clean Windows Apps - v1.1"
+$Form.text = "Clean Windows Apps - v1.1.1"
 $Form.TopMost = $false
 $Form.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#252525")
 
