@@ -1,6 +1,9 @@
 # CleanAppsGUI.ps1 by Rockz - 7/1/21
 # Remove/Reinstall non-essential Windows apps
 
+# Current version
+$AppVersion="1.2.0"
+
 # Hide PowerShell Console
 $dllvar = '[DllImport("user32.dll")] public static extern bool ShowWindow(int handle, int state);'
 add-type -name win -member $dllvar -namespace native
@@ -18,7 +21,7 @@ $Form.FormBorderStyle = 'FixedSingle'
 # $Form.MinimizeBox = $false
 $Form.MaximizeBox = $false
 # $Form.ShowIcon = $false
-$Form.text = "Clean Windows Apps - v1.1.1"
+$Form.text = "Clean Windows Apps - v$AppVersion"
 $Form.TopMost = $false
 $Form.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#252525")
 
@@ -92,7 +95,6 @@ Add-OutputBoxLine -Message "Removing Apps"
 $RemoveApps = "
 Microsoft.MixedReality.Portal|
 Microsoft.Wallet|
-Microsoft.DesktopAppInstaller|
 Microsoft.WindowsCamera|
 Microsoft.BingNews|
 Microsoft.GetHelp|
@@ -137,7 +139,8 @@ Minecraft|
 Royal Revolt|
 Sway|
 Speed Test|
-Dolby
+Dolby|
+Disney
 "
 # Remove the line returns to cleanup the variable
 $RemoveApps = $RemoveApps -replace '\r*\n', ''
@@ -168,14 +171,19 @@ switch  ($Result) {
 function ReinstallApps {
 Add-OutputBoxLine -Message "Reinstalling Apps"
 $progressPreference = 'silentlyContinue'
-# Generate a file to copy the acl from later on
-Out-File -FilePath $Env:ALLUSERSPROFILE\acl.txt -Force
-# Breakdown of long command below:
+# Breakdown of process
+# - create a temp file so we can copy the ACLs frim it later
 # - start an admin process to get a list of apps for all users
 # - write that list out to a file
-# - copy the acl from the above file and apply it to our list file
+# - copy the ACLs from the temp file and apply it to our list file
 # - this allows the non admin context to read the app list from the admin context
-Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"Get-AppxPackage -AllUsers | select InstallLocation | Format-Table -HideTableHeaders | Out-File -Width 1000 $Env:ALLUSERSPROFILE\applist.txt -Force; Get-Acl -Path $Env:ALLUSERSPROFILE\acl.txt | Set-Acl -Path $Env:ALLUSERSPROFILE\applist.txt`"" -Verb RunAs -Wait -WindowStyle Hidden
+Out-File -FilePath $Env:ALLUSERSPROFILE\acl.txt -Force
+Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"Get-AppxPackage -AllUsers | `
+select InstallLocation | `
+Format-Table -HideTableHeaders | `
+Out-File -Width 1000 $Env:ALLUSERSPROFILE\applist.txt -Force; `
+Get-Acl -Path $Env:ALLUSERSPROFILE\acl.txt | `
+Set-Acl -Path $Env:ALLUSERSPROFILE\applist.txt`"" -Verb RunAs -Wait -WindowStyle Hidden
 Add-OutputBoxLine -Message "Working ..."
 # Read the app list into a variable and go to work
 if ((Test-Path $Env:ALLUSERSPROFILE\applist.txt) -eq "True") {
