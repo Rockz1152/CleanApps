@@ -27,7 +27,6 @@ Instructions:
 List of apps the script will attempt to remove:
 - Microsoft.MixedReality.Portal
 - Microsoft.Wallet
-- Microsoft.DesktopAppInstaller
 - Microsoft.WindowsCamera
 - Microsoft.BingNews
 - Microsoft.GetHelp
