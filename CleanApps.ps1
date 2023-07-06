@@ -1,13 +1,18 @@
-# CleanAppsGUI.ps1 by Rockz - 7/1/21
+# CleanAppsGUI.ps1 by Rockz
 # Remove/Reinstall non-essential Windows apps
 
 # Current version
-$AppVersion="1.2.0"
+$AppVersion="1.3.0"
 
 # Hide PowerShell Console
 $dllvar = '[DllImport("user32.dll")] public static extern bool ShowWindow(int handle, int state);'
 add-type -name win -member $dllvar -namespace native
 [native.win]::ShowWindow(([System.Diagnostics.Process]::GetCurrentProcess() | Get-Process).MainWindowHandle, 0)
+
+# Check Windows version
+$version = Get-WMIObject win32_operatingsystem | Select-Object Caption
+if ($version.Caption -like "*Windows 10*") { $windowsVersion = 10 }
+if ($version.Caption -like "*Windows 11*") { $windowsVersion = 11 }
 
 # Init GUI
 Add-Type -AssemblyName System.Windows.Forms
@@ -74,6 +79,13 @@ $SubTitle.location = New-Object System.Drawing.Point(230,50)
 $SubTitle.Font = 'Microsoft Sans Serif,10'
 $SubTitle.ForeColor = "White"
 
+$VersionCard = New-Object System.Windows.Forms.Label
+$VersionCard.text = "Windows Version: $windowsVersion"
+$VersionCard.AutoSize = $true
+$VersionCard.location = New-Object System.Drawing.Point(15,115)
+$VersionCard.Font = 'Microsoft Sans Serif,12'
+$VersionCard.ForeColor = "White"
+
 $Note = New-Object System.Windows.Forms.Label
 $Note.text = "The Window will be unresponsive while an operation is in progress."
 $Note.AutoSize = $true
@@ -82,7 +94,7 @@ $Note.Font = 'Microsoft Sans Serif,10'
 $Note.ForeColor = "White"
 
 # Add elements to the form
-$Form.controls.AddRange(@($RemoveApps,$ReinstallApps,$OutputBox,$Note,$Title,$SubTitle,$ExitButton))
+$Form.controls.AddRange(@($RemoveApps,$ReinstallApps,$OutputBox,$Note,$Title,$SubTitle,$ExitButton,$VersionCard))
 
 # Add functions to buttons
 $RemoveApps.Add_Click({ RemoveApps })
@@ -91,6 +103,8 @@ $ExitButton.Add_Click({ ExitButton })
 
 function RemoveApps {
 Add-OutputBoxLine -Message "Removing Apps"
+
+if ($windowsVersion -eq 10) {
 # Microsoft.549981C3F5F10 is cortana
 $RemoveApps = "
 Microsoft.MixedReality.Portal|
@@ -142,7 +156,67 @@ Speed Test|
 Dolby|
 Disney
 "
-# Remove the line returns to cleanup the variable
+} elseif ($windowsVersion -eq 11) {
+$RemoveApps = "
+Microsoft.MixedReality.Portal|
+Microsoft.Wallet|
+Microsoft.WindowsCamera|
+Microsoft.BingNews|
+Microsoft.GetHelp|
+Microsoft.Getstarted|
+Microsoft.YourPhone|
+Microsoft.Messaging|
+Microsoft.Microsoft3DViewer|
+Microsoft.MicrosoftOfficeHub|
+Microsoft.MicrosoftSolitaireCollection|
+Microsoft.NetworkSpeedTest|
+Microsoft.News|
+Microsoft.Office.Lens|
+Microsoft.Office.OneNote|
+Microsoft.Office.Sway|
+Microsoft.OneConnect|
+Microsoft.People|
+Microsoft.Print3D|
+Microsoft.RemoteDesktop|
+Microsoft.SkypeApp|
+Microsoft.Office.Todo.List|
+Microsoft.Whiteboard|
+Microsoft.WindowsAlarms|
+microsoft.windowscommunicationsapps|
+Microsoft.WindowsFeedbackHub|
+Microsoft.WindowsMaps|
+Microsoft.BingWeather|
+Microsoft.549981C3F5F10|
+Microsoft.Advertising.Xaml|
+CandyCrush|
+EclipseManager|
+ActiproSoftwareLLC|
+AdobeSystemsIncorporated.AdobePhotoshopExpress|
+Duolingo-LearnLanguagesforFree|
+PandoraMediaInc|
+BubbleWitch3Saga|
+Wunderlist|
+Flipboard|
+Twitter|
+Facebook|
+Spotify|
+Minecraft|
+Royal Revolt|
+Sway|
+Speed Test|
+Dolby|
+Disney|
+Clipchamp.Clipchamp|
+Microsoft.PowerAutomateDesktop|
+Microsoft.Todos|
+MicrosoftCorporationII.MicrosoftFamily|
+MicrosoftCorporationII.QuickAssist
+"
+} else {
+    Add-OutputBoxLine -Message "A supported Windows install was not detected"
+    return
+}
+# Remove line returns to cleanup variable
 $RemoveApps = $RemoveApps -replace '\r*\n', ''
 $progressPreference = 'silentlyContinue'
 Add-OutputBoxLine -Message "Working ..."
@@ -172,7 +246,7 @@ function ReinstallApps {
 Add-OutputBoxLine -Message "Reinstalling Apps"
 $progressPreference = 'silentlyContinue'
 # Breakdown of process
-# - create a temp file so we can copy the ACLs frim it later
+# - create a temp file so we can copy the ACLs from it later
 # - start an admin process to get a list of apps for all users
 # - write that list out to a file
 # - copy the ACLs from the temp file and apply it to our list file
