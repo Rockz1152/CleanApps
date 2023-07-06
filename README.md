@@ -16,12 +16,12 @@ Disclaimer:
 
 Description:
 - CleanApps.ps1 is an interactive PowerShell script to assist in removing non essential Windows Apps.
-- Currently it supports Windows 10 and Windows 11
+- Currently it supports Windows 10 and Windows 11.
 - A list of the apps removed is provided after the instructions.
 
 Instructions:
-- Run AllowScript.bat to launch the script
-- You can also right click CleanApps.ps1 and select "Run with PowerShell", however this may give you an error if scripts are not allowed
+- Double click RunScript.bat to launch the script.
+- You can also right click CleanApps.ps1 and select "Run with PowerShell", however this may give you an error if scripts are not allowed.
 
 List of apps the script will attempt to remove:
 - Microsoft.MixedReality.Portal
