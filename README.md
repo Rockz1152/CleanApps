@@ -15,14 +15,13 @@ Disclaimer:
 - I do NOT take responsibility for what may happen to your system.
 
 Description:
-- CleanApps.ps1 is an interactive powershell script to assist in removing non essential Windows Apps.
+- CleanApps.ps1 is an interactive PowerShell script to assist in removing non essential Windows Apps.
+- Currently it supports Windows 10 and Windows 11
 - A list of the apps removed is provided after the instructions.
 
 Instructions:
-- Right click CleanApps.ps1 and select "Run with PowerShell".
-- If PowerShell asks for permission to run the script press "y".
-- If you get an error stating that scripts are not allowed to run on the system, you need to run AllowScript.bat as an administrator.
-  To do this, right click AllowScript.bat and select "Run as Administrator". After the window closes try the PowerShell script again.
+- Run AllowScript.bat to launch the script
+- You can also right click CleanApps.ps1 and select "Run with PowerShell", however this may give you an error if scripts are not allowed
 
 List of apps the script will attempt to remove:
 - Microsoft.MixedReality.Portal
@@ -55,6 +54,12 @@ List of apps the script will attempt to remove:
 - Microsoft.BingWeather
 - Microsoft.549981C3F5F10 (This is Cortana)
 - Microsoft.Advertising.Xaml
+- Microsoft.Todos
+- Microsoft.PowerAutomateDesktop
+- Microsoft.Getstarted
+- MicrosoftCorporationII.QuickAssist
+- MicrosoftCorporationII.MicrosoftFamily
+- Clipchamp
 - CandyCrush
 - EclipseManager
 - ActiproSoftwareLLC
@@ -73,3 +78,4 @@ List of apps the script will attempt to remove:
 - Speed Test
 - Dolby
 - Disney+
+
