@@ -213,9 +213,10 @@ MicrosoftCorporationII.MicrosoftFamily|
 MicrosoftCorporationII.QuickAssist
 "
 } else {
-    Add-OutputBoxLine -Message "A supported Windows install was not detected"
-    return
+Add-OutputBoxLine -Message "A supported Windows install was not detected"
+return
 }
+
 # Remove line returns to cleanup variable
 $RemoveApps = $RemoveApps -replace '\r*\n', ''
 $progressPreference = 'silentlyContinue'
