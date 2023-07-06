@@ -2,7 +2,7 @@
 # Remove/Reinstall non-essential Windows apps
 
 # Current version
-$AppVersion="1.3.0"
+$AppVersion="1.3.1"
 
 # Hide PowerShell Console
 $dllvar = '[DllImport("user32.dll")] public static extern bool ShowWindow(int handle, int state);'
