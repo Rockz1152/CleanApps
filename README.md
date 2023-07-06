@@ -21,6 +21,8 @@ Description:
 
 Instructions:
 - Double click RunScript.bat to launch the script.
+- If you get a warning stating "Windows protected your PC"
+  - Click "More info" and then click "Run anyway"
 - You can also right click CleanApps.ps1 and select "Run with PowerShell", however this may give you an error if scripts are not allowed.
 
 List of apps the script will attempt to remove:
