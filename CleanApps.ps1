@@ -12,11 +12,8 @@ public static extern IntPtr GetConsoleWindow();
 [DllImport("user32.dll")]
 public static extern bool ShowWindow(IntPtr hWnd, Int32 nCmdShow);
 '
-
-function Hide-Console
-{
+function Hide-Console {
     $consolePtr = [Console.Window]::GetConsoleWindow()
-    #0 hide
     [Console.Window]::ShowWindow($consolePtr, 0)
 }
 
