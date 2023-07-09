@@ -2,12 +2,23 @@
 # Remove/Reinstall non-essential Windows apps
 
 # Current version
-$AppVersion="1.3.1"
+$AppVersion="1.3.2"
 
 # Hide PowerShell Console
-$dllvar = '[DllImport("user32.dll")] public static extern bool ShowWindow(int handle, int state);'
-add-type -name win -member $dllvar -namespace native
-[native.win]::ShowWindow(([System.Diagnostics.Process]::GetCurrentProcess() | Get-Process).MainWindowHandle, 0)
+Add-Type -Name Window -Namespace Console -MemberDefinition '
+[DllImport("Kernel32.dll")]
+public static extern IntPtr GetConsoleWindow();
+
+[DllImport("user32.dll")]
+public static extern bool ShowWindow(IntPtr hWnd, Int32 nCmdShow);
+'
+
+function Hide-Console
+{
+    $consolePtr = [Console.Window]::GetConsoleWindow()
+    #0 hide
+    [Console.Window]::ShowWindow($consolePtr, 0)
+}
 
 # Check Windows version
 $version = Get-WMIObject win32_operatingsystem | Select-Object Caption
@@ -29,6 +40,7 @@ $Form.MaximizeBox = $false
 $Form.text = "Clean Windows Apps - v$AppVersion"
 $Form.TopMost = $false
 $Form.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#252525")
+$Form.Add_Shown({Hide-Console})
 
 $RemoveApps = New-Object system.Windows.Forms.Button
 $RemoveApps.text = "Remove Apps"
@@ -54,7 +66,7 @@ $ExitButton.location = New-Object System.Drawing.Point(130,140)
 $ExitButton.Font = New-Object System.Drawing.Font('Microsoft Sans Serif',8)
 $ExitButton.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#81b772")
 # On click do function
-$ExitButton.Add_Click({Add-OutputBoxLine -Message "Exiting ..."; $Form.Close()})
+#$ExitButton.Add_Click({Add-OutputBoxLine -Message "Exiting ..."; $Form.Close()})
 
 $OutputBox = New-Object System.Windows.Forms.TextBox 
 $OutputBox.Location = New-Object System.Drawing.Size(10,200)
@@ -87,9 +99,9 @@ $VersionCard.Font = 'Microsoft Sans Serif,12'
 $VersionCard.ForeColor = "White"
 
 $Note = New-Object System.Windows.Forms.Label
-$Note.text = "The Window will be unresponsive while an operation is in progress."
+$Note.text = "The window will be unresponsive while an operation is in progress."
 $Note.AutoSize = $true
-$Note.location = New-Object System.Drawing.Point(20,180)
+$Note.location = New-Object System.Drawing.Point(16,180)
 $Note.Font = 'Microsoft Sans Serif,10'
 $Note.ForeColor = "White"
 
@@ -286,6 +298,10 @@ function Add-OutputBoxLine {
     $OutputBox.AppendText("`r`n$Message")
     $OutputBox.Refresh()
     $OutputBox.ScrollToCaret()
+}
+
+function ExitButton {
+    $Form.close()
 }
 
 [void]$Form.ShowDialog()
