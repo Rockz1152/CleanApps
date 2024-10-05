@@ -58,7 +58,8 @@ List of apps the script will attempt to remove:
 - Microsoft.Advertising.Xaml
 - Microsoft.Todos
 - Microsoft.PowerAutomateDesktop
-- MicrosoftCorporationII.QuickAssist
+- Microsoft.Copilot
+- Microsoft.Windows.DevHome
 - MicrosoftCorporationII.MicrosoftFamily
 - Clipchamp
 - CandyCrush
