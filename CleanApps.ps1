@@ -2,7 +2,7 @@
 # Remove/Reinstall non-essential Windows apps
 
 # Current version
-$AppVersion="1.3.2"
+$AppVersion="1.3.3"
 
 # Hide PowerShell Console
 Add-Type -Name Window -Namespace Console -MemberDefinition '
@@ -146,6 +146,8 @@ Microsoft.WindowsMaps|
 Microsoft.BingWeather|
 Microsoft.549981C3F5F10|
 Microsoft.Advertising.Xaml|
+Microsoft.Copilot|
+Microsoft.Windows.DevHome|
 CandyCrush|
 EclipseManager|
 ActiproSoftwareLLC|
@@ -197,6 +199,8 @@ Microsoft.WindowsMaps|
 Microsoft.BingWeather|
 Microsoft.549981C3F5F10|
 Microsoft.Advertising.Xaml|
+Microsoft.Copilot|
+Microsoft.Windows.DevHome|
 CandyCrush|
 EclipseManager|
 ActiproSoftwareLLC|
@@ -218,8 +222,7 @@ Disney|
 Clipchamp.Clipchamp|
 Microsoft.PowerAutomateDesktop|
 Microsoft.Todos|
-MicrosoftCorporationII.MicrosoftFamily|
-MicrosoftCorporationII.QuickAssist
+MicrosoftCorporationII.MicrosoftFamily
 "
 } else {
 Add-OutputBoxLine -Message "A supported Windows install was not detected"
