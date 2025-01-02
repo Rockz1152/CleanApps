@@ -26,58 +26,57 @@ Instructions:
 - You can also right click CleanApps.ps1 and select "Run with PowerShell", however this may give you an error if scripts are not allowed.
 
 List of apps the script will attempt to remove:
-- Microsoft.MixedReality.Portal
-- Microsoft.Wallet
-- Microsoft.WindowsCamera
+- ActiproSoftwareLLC
+- AdobeSystemsIncorporated.AdobePhotoshopExpress
+- BubbleWitch3Saga
+- CandyCrush
+- Clipchamp
+- Disney+
+- Dolby
+- Duolingo-LearnLanguagesforFree
+- EclipseManager
+- Facebook
+- Flipboard
+- Microsoft.549981C3F5F10 (This is Cortana)
+- Microsoft.Advertising.Xaml
 - Microsoft.BingNews
+- Microsoft.BingWeather
+- Microsoft.Copilot
 - Microsoft.GetHelp
 - Microsoft.Getstarted
-- Microsoft.YourPhone
 - Microsoft.Messaging
 - Microsoft.Microsoft3DViewer
 - Microsoft.MicrosoftOfficeHub
 - Microsoft.MicrosoftSolitaireCollection
+- Microsoft.MixedReality.Portal
 - Microsoft.NetworkSpeedTest
 - Microsoft.News
 - Microsoft.Office.Lens
 - Microsoft.Office.OneNote
 - Microsoft.Office.Sway
+- Microsoft.Office.Todo.List
 - Microsoft.OneConnect
 - Microsoft.People
+- Microsoft.PowerAutomateDesktop
 - Microsoft.Print3D
 - Microsoft.RemoteDesktop
 - Microsoft.SkypeApp
-- Microsoft.Office.Todo.List
+- Microsoft.Todos
+- Microsoft.Wallet
 - Microsoft.Whiteboard
+- Microsoft.Windows.DevHome
 - Microsoft.WindowsAlarms
+- Microsoft.WindowsCamera
 - microsoft.windowscommunicationsapps
 - Microsoft.WindowsFeedbackHub
 - Microsoft.WindowsMaps
-- Microsoft.BingWeather
-- Microsoft.549981C3F5F10 (This is Cortana)
-- Microsoft.Advertising.Xaml
-- Microsoft.Todos
-- Microsoft.PowerAutomateDesktop
-- Microsoft.Copilot
-- Microsoft.Windows.DevHome
+- Microsoft.YourPhone
 - MicrosoftCorporationII.MicrosoftFamily
-- Clipchamp
-- CandyCrush
-- EclipseManager
-- ActiproSoftwareLLC
-- AdobeSystemsIncorporated.AdobePhotoshopExpress
-- Duolingo-LearnLanguagesforFree
-- PandoraMediaInc
-- BubbleWitch3Saga
-- Wunderlist
-- Flipboard
-- Twitter
-- Facebook
-- Spotify
 - Minecraft
+- PandoraMediaInc
 - Royal Revolt
-- Sway
 - Speed Test
-- Dolby
-- Disney+
-
+- Spotify
+- Sway
+- Twitter
+- Wunderlist
