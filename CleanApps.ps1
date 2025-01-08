@@ -222,7 +222,8 @@ Disney|
 Clipchamp.Clipchamp|
 Microsoft.PowerAutomateDesktop|
 Microsoft.Todos|
-MicrosoftCorporationII.MicrosoftFamily
+MicrosoftCorporationII.MicrosoftFamily|
+Microsoft.BingSearch
 "
 } else {
 Add-OutputBoxLine -Message "A supported Windows install was not detected"
