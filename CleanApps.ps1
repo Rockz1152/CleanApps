@@ -2,7 +2,7 @@
 # Remove/Reinstall non-essential Windows apps
 
 # Current version
-$AppVersion="1.3.3"
+$AppVersion="1.3.4"
 
 # Hide PowerShell Console
 Add-Type -Name Window -Namespace Console -MemberDefinition '
@@ -165,7 +165,8 @@ Royal Revolt|
 Sway|
 Speed Test|
 Dolby|
-Disney
+Disney|
+Microsoft.BingSearch
 "
 } elseif ($windowsVersion -eq 11) {
 $RemoveApps = "
