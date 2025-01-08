@@ -40,6 +40,7 @@ List of apps the script will attempt to remove:
 - Microsoft.549981C3F5F10 (This is Cortana)
 - Microsoft.Advertising.Xaml
 - Microsoft.BingNews
+- Microsoft.BingSearch
 - Microsoft.BingWeather
 - Microsoft.Copilot
 - Microsoft.GetHelp
